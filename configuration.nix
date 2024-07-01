@@ -152,9 +152,9 @@
     settings = {
       background.path = "/usr/share/backgrounds/greeter.jpg";
       background.fit = "Fill";
-      gtk.application_prefer_dark_theme = true;
-      gtk.theme = "Canta";
-      icon_theme_name = "Canta";
+      "GTK".application_prefer_dark_theme = true;
+      "GTK".theme = "Canta";
+      "GTK".icon_theme_name = "Canta";
       commands = {
         reboot = [
           "systemctl"
