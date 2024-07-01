@@ -127,4 +127,15 @@ rec {
   wayland.windowManager.hyprland.systemd.enable = true;
 
   wayland.windowManager.hyprland.settings = import ./home/hyprland_settings.nix pkgs;
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "on";
+      splash = false;
+
+      preload = [ "/usr/share/backgrounds/desktop.jpg" ];
+      wallpaper = [ ",/usr/share/backgrounds/desktop.jpg" ];
+    };
+  };
 }
