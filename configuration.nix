@@ -9,11 +9,6 @@
   ...
 }:
 
-let
-  loginHyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
-    exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; ${pkgs.hyprland}/bin/hyprctl dispatch exit
-  '';
-in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -113,6 +108,7 @@ in
     xdg-desktop-portal-hyprland
     xwayland
     brillo
+    canta-theme
   ];
 
   fonts.packages = with pkgs; [ nerdfonts ];
@@ -151,9 +147,26 @@ in
     })
   ];
 
-  services.greetd = {
+  programs.regreet = {
     enable = true;
-    settings.default_session.command = "${pkgs.hyprland}/bin/Hyprland --config ${loginHyprlandConfig}";
+    settings = {
+      background.path = "/usr/share/backgrounds/greeter.jpg";
+      background.fit = "Fill";
+      gtk.application_prefer_dark_theme = true;
+      gtk.theme = "Canta";
+      icon_theme_name = "Canta";
+      commands = {
+        reboot = [
+          "systemctl"
+          "reboot"
+        ];
+        poweroff = [
+          "systemctl"
+          "poweroff"
+        ];
+      };
+      appearance.greeting_msg = "Welcome back!";
+    };
   };
 
   environment.etc."greetd/environments".text = "Hyprland";
