@@ -69,6 +69,7 @@
       "$mod, F, exec, firefox"
       "$mod, T, exec, $terminal"
       "$mod, E, exec, $fileManager"
+      "$mod, S, exec, gnome-software"
 
       # Manage Applications
       "$mod, Q, killactive"

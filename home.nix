@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-rec {
+{
   home.username = "lachlan";
   home.homeDirectory = "/home/lachlan";
 
@@ -8,6 +8,7 @@ rec {
     # Applications
     firefox
     gnome.nautilus
+    gnome.gnome-software
 
     # Dev Tools
     alacritty
@@ -30,15 +31,20 @@ rec {
 
   programs.home-manager.enable = true;
 
-  programs.bash.enable = true;
-  programs.bash.shellAliases = {
-    z = "zellij";
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      z = "zellij";
 
-    # Git Aliases
-    g = "git";
-    ga = "git add";
-    gc = "git commit";
-    gcl = "git clone";
+      # Git Aliases
+      g = "git";
+      ga = "git add";
+      gc = "git commit";
+      gcl = "git clone";
+    };
+    profileExtra = ''
+      export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/shar:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
+    '';
   };
 
   services.gpg-agent = {
