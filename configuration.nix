@@ -2,18 +2,23 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   loginHyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
-  exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; ${pkgs.hyprland}/bin/hyprctl dispatch exit
+    exec-once = ${pkgs.greetd.gtkgreet}/bin/gtkgreet -l; ${pkgs.hyprland}/bin/hyprctl dispatch exit
   '';
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -22,7 +27,7 @@ in
   networking.hostName = "theodore"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
@@ -42,8 +47,10 @@ in
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -75,20 +82,22 @@ in
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lachlan = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" "video"]; # Enable ‘sudo’ for the user.
-     packages = with pkgs; [
-  #     firefox
-       tree
-     ];
-   };
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+    ];
+    packages = with pkgs; [
+      #     firefox
+      tree
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -106,9 +115,7 @@ in
     brillo
   ];
 
-  fonts.packages = with pkgs; [
-    nerdfonts
-  ];
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   hardware.brillo.enable = true;
 
@@ -127,16 +134,22 @@ in
 
   services.gvfs.enable = true;
 
-  nixpkgs.overlays = [(self: super: {
-    gnome = super.gnome.overrideScope (gself: gsuper: {
-      nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
-        buildInputs = nsuper.buildInputs ++ (with pkgs.gst_all_1; [
-          gst-plugins-good
-          gst-plugins-bad
-        ]);
-      });
-    });
-  })];
+  nixpkgs.overlays = [
+    (self: super: {
+      gnome = super.gnome.overrideScope (
+        gself: gsuper: {
+          nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
+            buildInputs =
+              nsuper.buildInputs
+              ++ (with pkgs.gst_all_1; [
+                gst-plugins-good
+                gst-plugins-bad
+              ]);
+          });
+        }
+      );
+    })
+  ];
 
   services.greetd = {
     enable = true;
@@ -144,7 +157,7 @@ in
   };
 
   environment.etc."greetd/environments".text = "Hyprland";
-  
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -169,6 +182,4 @@ in
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
-

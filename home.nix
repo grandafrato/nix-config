@@ -1,4 +1,4 @@
-{ pkgs, ... } :
+{ pkgs, ... }:
 
 rec {
   home.username = "lachlan";
@@ -30,6 +30,7 @@ rec {
 
   programs.home-manager.enable = true;
 
+  programs.bash.enable = true;
   programs.bash.shellAliases = {
     z = "zellij";
 
@@ -62,11 +63,13 @@ rec {
     settings.keys.insert = {
       j.k = "normal_mode";
     };
-    languages.language = [{
-      name = "nix";
-      auto-format = true;
-      formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-    }];
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+      }
+    ];
   };
 
   programs.zellij = {
@@ -88,7 +91,11 @@ rec {
       height = 30;
       modules-left = [ "hyprland/workspaces" ];
       modules-center = [ "hyprland/window" ];
-      modules-right = [ "wireplumber" "backlight" "battery" ];
+      modules-right = [
+        "wireplumber"
+        "backlight"
+        "battery"
+      ];
 
       "hyprland/workspaces" = {
         format = "<sub>{icon}</sub> {windows}";
@@ -140,39 +147,44 @@ rec {
 
     # Key Binds
     "$mod" = "SUPER";
-    bind = [
-      # Application Binds
-      "$mod, F, exec, firefox"
-      "$mod, T, exec, $terminal"
-      "$mod, E, exec, $fileManager"
+    bind =
+      [
+        # Application Binds
+        "$mod, F, exec, firefox"
+        "$mod, T, exec, $terminal"
+        "$mod, E, exec, $fileManager"
 
-      # Brightness Control
-      ", XF86MonBrightnessUp, exec, ${pkgs.brillo}/bin/brillo -q -A 5"
-      ", XF86MonBrightnessDown, exec, ${pkgs.brillo}/bin/brillo -q -U 5"
+        # Brightness Control
+        ", XF86MonBrightnessUp, exec, ${pkgs.brillo}/bin/brillo -q -A 5"
+        ", XF86MonBrightnessDown, exec, ${pkgs.brillo}/bin/brillo -q -U 5"
 
-      # Logout
-      "$mod, U, exec, loginctl kill-user ${home.username}"
-    ]
-    ++ (
-      builtins.concatLists (builtins.genList (
-        x: let
-          ws = let
-            c = (x + 1) / 10;
+        # Logout
+        "$mod, U, exec, loginctl kill-user ${home.username}"
+      ]
+      ++ (builtins.concatLists (
+        builtins.genList (
+          x:
+          let
+            ws =
+              let
+                c = (x + 1) / 10;
+              in
+              builtins.toString (x + 1 - (c * 10));
           in
-            builtins.toString (x + 1 - (c * 10));
-        in [
-          "$mod, ${ws}, workspace, ${toString (x + 1)}"
-          "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-        ]
-      )
-      10)
-    );
+          [
+            "$mod, ${ws}, workspace, ${toString (x + 1)}"
+            "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+          ]
+        ) 10
+      ));
 
     # Media Control
     bindel = [
       ", XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
       ", XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     ];
-    bindl = [ ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" ];
+    bindl = [
+      ", XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    ];
   };
 }
