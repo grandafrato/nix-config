@@ -107,8 +107,8 @@
       };
 
       "hyprland/window" = {
-        format = "{icon} {title}";
-        icon = true;
+        # format = "{icon} {title}";
+        # icon = true;
         separate-outputs = true;
       };
 
