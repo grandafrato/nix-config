@@ -8,7 +8,7 @@
   exec-once = [ "waybar" ];
 
   general = {
-    gaps_out = 15;
+    gaps_out = 10;
     gaps_in = 5;
 
     border_size = 2;
