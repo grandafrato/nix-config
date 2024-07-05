@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.username = "lachlan";
@@ -92,6 +92,7 @@
     settings.main = {
       layer = "overlay";
       terminal = "${pkgs.foot}/bin/foot";
+      dpi-aware = lib.mkForce "yes";
     };
   };
 
