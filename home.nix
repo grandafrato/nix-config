@@ -45,6 +45,7 @@
     profileExtra = ''
       export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/shar:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
     '';
+    sessionVariables.EDITOR = "hx";
   };
 
   services.gpg-agent = {
