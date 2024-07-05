@@ -11,7 +11,6 @@
     gnome.gnome-software
 
     # Dev Tools
-    alacritty
     btop
     helix
     nil
@@ -94,8 +93,13 @@
     enable = true;
     settings.main = {
       layer = "overlay";
-      terminal = "alacritty";
+      terminal = "${pkgs.foot}/bin/foot";
     };
+  };
+
+  programs.foot = {
+    enable = true;
+    settings.mouse.hide-when-typing = "yes";
   };
 
   programs.waybar = {

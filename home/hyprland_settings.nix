@@ -51,7 +51,7 @@
   misc.disable_hyprland_logo = true;
 
   # Applications
-  "$terminal" = "alacritty";
+  "$terminal" = "${pkgs.foot}/bin/foot";
   "$fileManager" = "nautilus";
 
   # Input Tuning
