@@ -65,7 +65,7 @@
 
   programs.helix = {
     enable = true;
-    settings.theme = "dracula_at_night";
+    # settings.theme = "dracula_at_night";
     settings.keys.insert = {
       j.k = "normal_mode";
     };
@@ -77,8 +77,6 @@
       }
     ];
   };
-
-  stylix.targets.helix.enable = false;
 
   programs.zellij = {
     enable = true;
