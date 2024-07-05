@@ -70,6 +70,7 @@
       "$mod, T, exec, $terminal"
       "$mod, E, exec, $fileManager"
       "$mod, S, exec, gnome-software"
+      "$mod, A, exec, ${pkgs.fuzzel}/bin/fuzzel"
 
       # Manage Applications
       "$mod, Q, killactive"

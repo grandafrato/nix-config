@@ -88,11 +88,20 @@
     };
   };
 
+  programs.fuzzel = {
+    enable = true;
+    settings.main = {
+      layer = "overlay";
+      terminal = "alacritty";
+    };
+  };
+
   programs.waybar = {
     enable = true;
     settings.minibar = {
       layer = "top";
       position = "top";
+      passthrough = false;
       height = 30;
       modules-left = [ "hyprland/workspaces" ];
       modules-center = [ "hyprland/window" ];
