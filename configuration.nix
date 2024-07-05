@@ -174,6 +174,17 @@
 
   environment.etc."greetd/environments".text = "Hyprland";
 
+  stylix = {
+    enable = true;
+    image = /usr/share/backgrounds/desktop.jpg;
+    polarity = "dark";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/darcula.yaml";
+    fonts.monospace = {
+      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+      name = "JetBrainsMono Nerd Font Mono";
+    };
+  };
+
   services.interception-tools =
     let
       itools = pkgs.interception-tools;

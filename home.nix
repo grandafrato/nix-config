@@ -16,6 +16,7 @@
     helix
     nil
     zellij
+    bat
 
     # notification daemon
     dunst
@@ -78,11 +79,12 @@
     ];
   };
 
+  stylix.targets.helix.enable = false;
+
   programs.zellij = {
     enable = true;
     settings = {
       pane_frames = false;
-      theme = "dracula";
       default_layout = "compact";
       copy_command = "wl-copy";
     };
@@ -141,6 +143,8 @@
   wayland.windowManager.hyprland.systemd.enable = true;
 
   wayland.windowManager.hyprland.settings = import ./home/hyprland_settings.nix pkgs;
+
+  stylix.targets.hyprland.enable = false;
 
   services.hyprpaper = {
     enable = true;
