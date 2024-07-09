@@ -107,6 +107,8 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    pass-secret-service
+    pass-wayland
 
     # Desktop functionality
     hyprland

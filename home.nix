@@ -23,6 +23,7 @@
 
     # networking
     networkmanagerapplet
+    pass-wayland
   ];
 
   home.stateVersion = "24.05";
@@ -93,7 +94,8 @@
     settings.main = {
       layer = "overlay";
       terminal = "${pkgs.foot}/bin/foot";
-      dpi-aware = lib.mkForce "yes";
+      font = lib.mkForce "Hack Nerd Font:size=28";
+      width = 40;
     };
   };
 
@@ -101,6 +103,8 @@
     enable = true;
     settings.mouse.hide-when-typing = "yes";
   };
+
+  services.pass-secret-service.enable = true;
 
   programs.waybar = {
     enable = true;
