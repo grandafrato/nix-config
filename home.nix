@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
   home.username = "lachlan";
@@ -106,45 +111,8 @@
 
   services.pass-secret-service.enable = true;
 
-  programs.waybar = {
-    enable = true;
-    settings.minibar = {
-      layer = "top";
-      position = "top";
-      passthrough = false;
-      height = 30;
-      modules-left = [ "hyprland/workspaces" ];
-      modules-center = [ "hyprland/window" ];
-      modules-right = [
-        "wireplumber"
-        "backlight"
-        "battery"
-      ];
-
-      "hyprland/workspaces" = {
-        format = "<sub>{icon}</sub> {windows}";
-      };
-
-      "hyprland/window" = {
-        # format = "{icon} {title}";
-        # icon = true;
-        separate-outputs = true;
-      };
-
-      wireplumber.format = "Volume: {volume}% ";
-
-      backlight.format = "Brightness: {percent}%";
-
-      battery = {
-        interval = 60;
-        state = {
-          warning = 20;
-          critical = 10;
-        };
-        format = "Battery: {capacity}%";
-      };
-    };
-  };
+  programs.waybar = import ./home/waybar.nix;
+  stylix.targets.waybar.enable = false;
 
   wayland.windowManager.hyprland.enable = true;
 
