@@ -101,7 +101,7 @@ in
         "󰂂"
         "󰁹"
       ];
-      on-click = "";
+      on-click = "wlogout";
       tooltip = false;
     };
   };

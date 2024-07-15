@@ -89,7 +89,7 @@
       ", XF86MonBrightnessDown, exec, ${pkgs.brillo}/bin/brillo -q -U 5"
 
       # Logout
-      "$mod, U, exec, loginctl kill-user lachlan"
+      "$mod, U, exec, ${pkgs.wlogout}/bin/wlogout"
     ]
     ++ (builtins.concatLists (
       builtins.genList (

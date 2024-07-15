@@ -21,6 +21,8 @@
     nil
     zellij
     bat
+    podman
+    podman-tui
 
     # notification daemon
     dunst
@@ -121,6 +123,8 @@
   wayland.windowManager.hyprland.settings = import ./home/hyprland_settings.nix pkgs;
 
   stylix.targets.hyprland.enable = false;
+
+  programs.wlogout.enable = true;
 
   services.hyprpaper = {
     enable = true;
