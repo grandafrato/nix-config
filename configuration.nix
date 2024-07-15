@@ -93,6 +93,13 @@
     pulse.enable = true;
   };
 
+  virtualisation.containers.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 

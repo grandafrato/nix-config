@@ -21,8 +21,6 @@
     nil
     zellij
     bat
-    podman
-    podman-tui
 
     # notification daemon
     dunst
