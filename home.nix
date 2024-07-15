@@ -111,6 +111,11 @@
     settings.mouse.hide-when-typing = "yes";
   };
 
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   services.pass-secret-service.enable = true;
 
   programs.waybar = import ./home/waybar.nix;
