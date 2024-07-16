@@ -164,7 +164,7 @@ in
       font-weight: bold;
       margin: 0px;
       margin-left: 7px;
-      padding: 0px 30px;
+      padding: 0px 40px;
       background: #626483;
       color: #dee2e6;
       border-radius: 0px 0px 40px 40px;
