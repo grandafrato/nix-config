@@ -82,6 +82,10 @@
         auto-format = true;
         formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
       }
+      {
+        name = "elixir";
+        auto-format = true;
+      }
     ];
   };
 
@@ -112,6 +116,10 @@
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
+    settings = {
+      package.disabled = true;
+      elixir.disabled = true;
+    };
   };
 
   services.pass-secret-service.enable = true;
