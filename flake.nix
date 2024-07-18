@@ -15,6 +15,7 @@
       url = "github:AdnanHodzic/auto-cpufreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs =
@@ -23,11 +24,15 @@
       home-manager,
       stylix,
       auto-cpufreq,
+      hyprland,
       ...
     }:
     {
       nixosConfigurations.theodore = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = {
+          inherit hyprland;
+        };
         modules = [
           stylix.nixosModules.stylix
           ./configuration.nix

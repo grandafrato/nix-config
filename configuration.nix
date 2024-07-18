@@ -2,12 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, hyprland, ... }:
 
 {
   imports = [
@@ -119,7 +114,10 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  };
 
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
