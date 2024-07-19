@@ -142,4 +142,51 @@
       wallpaper = [ ",/usr/share/backgrounds/desktop.jpg" ];
     };
   };
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+      };
+      listener = [
+        # After 2.5 minutes, set monitor to minimum brightness, and return to
+        # to previous brightness on awake.
+        {
+          timeout = 150;
+          on-timeout = "brillo -O && brillo -S 0.01";
+          on-resume = "brillo -I";
+        }
+        # After 5 minutes, lock the screen.
+        {
+          timeout = 300;
+          on-timeout = "loginctl lock-session";
+        }
+        # After 5 and 1/2 minutes, turn the screen off, but turn it bacl on if
+        # activity is detected after timeout has been fired.
+        {
+          timeout = 330;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        # Suspend computer after 30 minutes.
+        {
+          timeout = 1800;
+          on-timeout = "systemctl suspend";
+        }
+      ];
+    };
+  };
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      source = "${./home/hyprlock/mocha.conf}";
+      "$bg_path" = "${./home/hyprlock/background.png}";
+      "$face_path" = "${./home/hyprlock/face.png}";
+    };
+    extraConfig = builtins.readFile ./home/hyprlock/hyprlock.conf;
+  };
 }
