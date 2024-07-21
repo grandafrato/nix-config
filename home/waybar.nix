@@ -14,7 +14,7 @@ in
     ];
     modules-center = [ "hyprland/window" ];
     modules-right = [
-      "pulseaudio"
+      "wireplumber"
       "backlight"
       "network"
       "battery"
@@ -43,7 +43,7 @@ in
       rewrite."" = "No Windows Focused";
     };
 
-    "network" = {
+    network = {
       format-icons = [
         "󰤯"
         "󰤟"
@@ -57,31 +57,19 @@ in
       tooltip = false;
     };
 
-    "pulseaudio" = {
-      format = "{icon} {volume}% {format_source}";
-      format-bluetooth = "{volume}% {icon} {format_source}";
-      format-bluetooth-muted = " {icon} {format_source}";
-      format-muted = " {format_source}";
-      format-source = " {volume}%";
-      format-source-muted = "";
-      format-icons = {
-        headphone = "";
-        hands-free = "";
-        headset = "";
-        phone = "";
-        portable = "";
-        car = "";
-        default = [
-          ""
-          ""
-          ""
-        ];
-      };
+    wireplumber = {
+      format = "{icon} {volume}%";
+      format-muted = "";
+      format-icons = [
+        ""
+        ""
+        ""
+      ];
     };
 
     backlight.format = "Brightness: {percent}%";
 
-    "battery" = {
+    battery = {
       states = {
         warning = 30;
         critical = 15;
@@ -169,7 +157,7 @@ in
       color: #dee2e6;
       border-radius: 0px 0px 40px 40px;
     }
-    #network, #battery, #backlight, #pulseaudio {
+    #network, #battery, #backlight, #wireplumber {
       font-weight: bold;
       background: #00f769;
       color: #282936;
