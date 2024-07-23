@@ -12,6 +12,7 @@
       firefox
       gnome.nautilus
       gnome.gnome-software
+      orca-slicer
 
       # Dev Tools
       btop
