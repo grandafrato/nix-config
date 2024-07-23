@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
   # Monitor Settings
-  monitor = ",preferred,auto,0.75";
+  monitor = [
+    "eDP-1,preferred,auto,0.75"
+    ",preferred,auto-left,1"
+  ];
   xwayland.force_zero_scaling = true;
 
   # Startup
@@ -25,18 +28,9 @@
     active_opacity = 1.0;
     inactive_opacity = 1.0;
 
-    drop_shadow = true;
-    shadow_range = 4;
-    shadow_render_power = 3;
-    "col.shadow" = "rgba(1a1a1aee)";
+    drop_shadow = false;
 
-    blur = {
-      enabled = true;
-      size = 3;
-      passes = 1;
-
-      vibrancy = 0.1696;
-    };
+    blur.enabled = false;
   };
 
   animations.enabled = false;
@@ -48,7 +42,10 @@
 
   master.new_status = "master";
 
-  misc.disable_hyprland_logo = true;
+  misc = {
+    disable_hyprland_logo = true;
+    vfr = true;
+  };
 
   # Applications
   "$terminal" = "${pkgs.foot}/bin/foot";
