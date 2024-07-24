@@ -11,6 +11,7 @@ in
     modules-left = [
       "clock"
       "hyprland/workspaces"
+      "idle_inhibitor"
     ];
     modules-center = [ "hyprland/window" ];
     modules-right = [
@@ -35,6 +36,14 @@ in
       format = '' {:L%I:%M %p}'';
       tooltip = true;
       tooltip-format = "<big>{:%A, %d.%B %Y }</big>\n<tt><small>{calendar}</small></tt>";
+    };
+
+    idle_inhibitor = {
+      format = "{icon}";
+      format-icons = {
+        activated = "";
+        deactivated = "";
+      };
     };
 
     "hyprland/window" = {
@@ -173,6 +182,14 @@ in
       margin: 0px;
       padding: 0px 30px 0px 15px;
       border-radius: 0px 0px 40px 0px;
+    }
+    #idle_inhibitor {
+      font-weight: bold;
+      color: #0D0E15;
+      background: linear-gradient(90deg, #b45bcf, #a1efe4);
+      margin: 4px 4px;
+      padding: 5px 10px;
+      border-radius: 16px;
     }
   '';
 }
