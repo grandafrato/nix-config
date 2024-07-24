@@ -102,7 +102,7 @@
       settings.main = {
         layer = "overlay";
         terminal = "${pkgs.foot}/bin/foot";
-        font = lib.mkForce "Hack Nerd Font:size=28";
+        font = lib.mkForce "Hack Nerd Font:size=18";
         width = 40;
       };
     };

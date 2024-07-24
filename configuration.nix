@@ -168,7 +168,7 @@
     wl-clipboard
   ];
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   hardware.brillo.enable = true;
 
@@ -233,9 +233,14 @@
     image = /usr/share/backgrounds/desktop.jpg;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
-    fonts.monospace = {
-      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
-      name = "JetBrainsMono Nerd Font Mono";
+    fonts = rec {
+      monospace = {
+        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+        name = "JetBrainsMono Nerd Font Mono";
+      };
+      serif = monospace;
+      sansSerif = monospace;
+      emoji = monospace;
     };
   };
 

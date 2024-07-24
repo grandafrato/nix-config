@@ -7,7 +7,7 @@ in
     layer = "top";
     position = "top";
     passthrough = false;
-    height = 30;
+    height = 40;
     modules-left = [
       "clock"
       "hyprland/workspaces"

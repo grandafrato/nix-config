@@ -2,7 +2,7 @@
 {
   # Monitor Settings
   monitor = [
-    "eDP-1,preferred,auto,0.75"
+    "eDP-1,preferred,auto,1"
     ",preferred,auto-left,1"
   ];
   xwayland.force_zero_scaling = true;
@@ -11,8 +11,8 @@
   exec-once = [ "waybar" ];
 
   general = {
-    gaps_out = 10;
-    gaps_in = 5;
+    gaps_out = 6;
+    gaps_in = 3;
 
     border_size = 2;
     resize_on_border = false;
