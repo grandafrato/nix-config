@@ -10,6 +10,7 @@
     home.packages = with pkgs; [
       # Applications
       firefox
+      firefoxpwa
       gnome.nautilus
       gnome.gnome-software
       orca-slicer
