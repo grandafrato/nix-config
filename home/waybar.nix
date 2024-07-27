@@ -76,7 +76,14 @@ in
       ];
     };
 
-    backlight.format = "Brightness: {percent}%";
+    backlight = {
+      device = "intel_backlight";
+      format = "{icon} {percent}%";
+      format-icons = [
+        ""
+        ""
+      ];
+    };
 
     battery = {
       states = {

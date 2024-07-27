@@ -9,7 +9,6 @@
 
     home.packages = with pkgs; [
       # Applications
-      firefox
       firefoxpwa
       gnome.nautilus
       gnome.gnome-software
@@ -31,6 +30,11 @@
       pass-wayland
     ];
 
+    programs.firefox = {
+      enable = true;
+      nativeMessagingHosts = [ pkgs.firefoxpwa ];
+    };
+
     home.stateVersion = "24.05";
 
     home.enableNixpkgsReleaseCheck = false;
@@ -45,8 +49,10 @@
         # Git Aliases
         g = "git";
         ga = "git add";
+        gaa = "git add -A";
         gc = "git commit";
         gcl = "git clone";
+        gp = "git push";
       };
       profileExtra = ''
         export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
