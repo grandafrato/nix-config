@@ -33,7 +33,7 @@
     blur.enabled = false;
   };
 
-  animations.enabled = false;
+  # animations.enabled = false;
 
   dwindle = {
     pseudotile = true;

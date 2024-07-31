@@ -9,7 +9,6 @@
 
     home.packages = with pkgs; [
       # Applications
-      firefoxpwa
       gnome.nautilus
       gnome.gnome-software
       orca-slicer
@@ -30,10 +29,7 @@
       pass-wayland
     ];
 
-    programs.firefox = {
-      enable = true;
-      nativeMessagingHosts = [ pkgs.firefoxpwa ];
-    };
+    programs.firefox.enable = true;
 
     home.stateVersion = "24.05";
 
@@ -116,7 +112,11 @@
 
     programs.foot = {
       enable = true;
-      settings.mouse.hide-when-typing = "yes";
+      settings = {
+        mouse.hide-when-typing = "yes";
+        main.app-id = "Terminal";
+        key-bindings.fullscreen = "F11";
+      };
     };
 
     programs.starship = {
