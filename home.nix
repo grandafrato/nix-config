@@ -26,6 +26,8 @@
 
       # networking
       networkmanagerapplet
+      networkmanager-openvpn
+      kdePackages.kwallet
       pass-wayland
     ];
 

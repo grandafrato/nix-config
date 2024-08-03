@@ -199,6 +199,14 @@
                 gst-plugins-bad
               ]);
           });
+          gnome-software = gsuper.gnome-software.overrideAttrs (gssuper: {
+            buildInputs =
+              gssuper.buildInputs
+              ++ (with pkgs.gst_all_1; [
+                gst-plugins-good
+                gst-plugins-bad
+              ]);
+          });
         }
       );
     })

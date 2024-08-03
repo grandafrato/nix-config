@@ -8,7 +8,10 @@
   xwayland.force_zero_scaling = true;
 
   # Startup
-  exec-once = [ "waybar" ];
+  exec-once = [
+    "waybar"
+    "nm-applet"
+  ];
 
   general = {
     gaps_out = 6;
