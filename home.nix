@@ -43,6 +43,7 @@
       enable = true;
       shellAliases = {
         z = "zellij";
+        freyr = "docker run -it --rm -v $PWD:/data:z freyrcli/freyrjs";
 
         # Git Aliases
         g = "git";
