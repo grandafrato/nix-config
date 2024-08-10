@@ -21,7 +21,6 @@
       bat
 
       # notification daemon
-      dunst
       libnotify
 
       # networking
@@ -145,6 +144,11 @@
     stylix.targets.hyprland.enable = false;
 
     programs.wlogout.enable = true;
+
+    services.dunst = {
+      enable = true;
+      settings.global.corner_radius = 8;
+    };
 
     services.hyprpaper = {
       enable = true;
