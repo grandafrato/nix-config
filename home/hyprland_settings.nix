@@ -51,7 +51,7 @@
   };
 
   # Applications
-  "$terminal" = "${pkgs.foot}/bin/foot";
+  "$terminal" = "${pkgs.kitty}/bin/kitty";
   "$fileManager" = "nautilus";
 
   # Input Tuning

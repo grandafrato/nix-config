@@ -106,19 +106,24 @@
       enable = true;
       settings.main = {
         layer = "overlay";
-        terminal = "${pkgs.foot}/bin/foot";
+        terminal = "${pkgs.kitty}/bin/kitty";
         font = lib.mkForce "Hack Nerd Font:size=18";
         width = 40;
       };
     };
 
-    programs.foot = {
+    # programs.foot = {
+    #   enable = true;
+    #   settings = {
+    #     mouse.hide-when-typing = "yes";
+    #     main.app-id = "Terminal";
+    #     key-bindings.fullscreen = "F11";
+    #   };
+    # };
+
+    programs.kitty = {
       enable = true;
-      settings = {
-        mouse.hide-when-typing = "yes";
-        main.app-id = "Terminal";
-        key-bindings.fullscreen = "F11";
-      };
+      shellIntegration.enableBashIntegration = true;
     };
 
     programs.starship = {
