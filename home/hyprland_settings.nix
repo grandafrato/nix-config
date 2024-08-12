@@ -61,8 +61,13 @@
     touchpad.natural_scroll = true;
   };
 
+  cursor.hide_on_key_press = true;
+
   # Key Binds
+  # Format is bind[flags]
   "$mod" = "SUPER";
+  "$mod_shift" = "SUPER_SHIFT";
+  "$mod_ctrl" = "SUPER_CTRL";
   bind =
     [
       # Application Binds
@@ -78,11 +83,25 @@
       "$mod, P, pseudo, # dwindle"
       "$mod, G, togglesplit, # dwindle"
 
-      # Move Windows
+      # Move Window Focus
       "$mod, H, movefocus, l"
       "$mod, L, movefocus, r"
       "$mod, K, movefocus, u"
       "$mod, J, movefocus, d"
+
+      # Swap Window Around Workspace
+      "$mod_shift, H, swapwindow, l"
+      "$mod_shift, L, swapwindow, r"
+      "$mod_shift, K, swapwindow, u"
+      "$mod_shift, J, swapwindow, d"
+
+      # Move Window to Next or Previous Workspace
+      "$mod_ctrl, K, movetoworkspace, +1"
+      "$mod_ctrl, J, movetoworkspace, -1"
+
+      # Change Focus to Next or Previous Workspace
+      "$mod, O, workspace, +1"
+      "$mod, I, workspace, -1"
 
       # Brightness Control
       ", XF86MonBrightnessUp, exec, ${pkgs.brillo}/bin/brillo -q -A 5"
@@ -103,7 +122,7 @@
         in
         [
           "$mod, ${ws}, workspace, ${toString (x + 1)}"
-          "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+          "$mod_ctrl, ${ws}, movetoworkspace, ${toString (x + 1)}"
         ]
       ) 10
     ));
