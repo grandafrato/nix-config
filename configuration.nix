@@ -4,6 +4,9 @@
 
 { pkgs, hyprland, ... }:
 
+let
+  hypr_packages = hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -148,7 +151,8 @@
 
   programs.hyprland = {
     enable = true;
-    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = hypr_packages.xdg-desktop-portal-hyprland;
+    package = hypr_packages.hyprland;
   };
 
   environment.sessionVariables = {
@@ -158,8 +162,10 @@
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      hypr_packages.xdg-desktop-portal-hyprland
+    ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -185,13 +191,8 @@
     pass-wayland
 
     # Desktop functionality
-    hyprland
     swww
-    waybar
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
     xwayland
-    brillo
     canta-theme
     wl-clipboard
   ];
