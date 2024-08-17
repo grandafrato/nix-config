@@ -67,7 +67,6 @@
   # Format is bind[flags]
   "$mod" = "SUPER";
   "$mod_shift" = "SUPER_SHIFT";
-  "$mod_ctrl" = "SUPER_CTRL";
   bind =
     [
       # Application Binds
@@ -96,8 +95,8 @@
       "$mod_shift, J, swapwindow, d"
 
       # Move Window to Next or Previous Workspace
-      "$mod_ctrl, K, movetoworkspace, +1"
-      "$mod_ctrl, J, movetoworkspace, -1"
+      "$mod_shift, O, movetoworkspace, +1"
+      "$mod_shift, I, movetoworkspace, -1"
 
       # Change Focus to Next or Previous Workspace
       "$mod, O, workspace, +1"
@@ -122,7 +121,7 @@
         in
         [
           "$mod, ${ws}, workspace, ${toString (x + 1)}"
-          "$mod_ctrl, ${ws}, movetoworkspace, ${toString (x + 1)}"
+          "$mod_shift, ${ws}, movetoworkspace, ${toString (x + 1)}"
         ]
       ) 10
     ));
