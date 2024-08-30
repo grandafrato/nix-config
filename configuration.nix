@@ -304,10 +304,17 @@ in
 
   services.fwupd.enable = true;
 
-  systemd.services.fprintd = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.type = "simple";
+  systemd = {
+    services.fprintd = {
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.type = "simple";
+    };
+    sleep.extraConfig = ''
+      HibernateDelaySec=21600
+    '';
   };
+
+  services.logind.lidSwitch = "suspend-then-hibernate";
 
   services.fprintd.enable = true;
 
