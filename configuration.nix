@@ -152,6 +152,17 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
+  # Allow bbc micro:bit
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "microbit_udev";
+      text = ''
+        SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", MODE="0664", TAG+="uaccess"
+      '';
+      destination = "/etc/udev/rules.d/50-microbit.rules";
+    })
+  ];
+
   programs.hyprland = {
     enable = true;
     portalPackage = hypr_packages.xdg-desktop-portal-hyprland;
