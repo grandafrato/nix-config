@@ -28,6 +28,17 @@ in
     wifi.scanRandMacAddress = false;
   };
 
+  services.protonvpn = {
+    enable = true;
+    autostart = true;
+    interface.privateKeyFile = "/root/secrets/protonvpn";
+    # US-CA#85
+    endpoint = {
+      publicKey = "0lVdORRneTkqH7Hh12Z5hnATz+kXmkiSwz8YHHx4Ywg=";
+      ip = "156.146.54.97";
+    };
+  };
+
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
