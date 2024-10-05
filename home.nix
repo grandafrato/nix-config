@@ -9,9 +9,9 @@
 
     home.packages = with pkgs; [
       # Applications
-      gnome.nautilus
-      gnome.gnome-software
-      gnome.gnome-disk-utility
+      nautilus
+      gnome-software
+      gnome-disk-utility
 
       # Dev Tools
       btop

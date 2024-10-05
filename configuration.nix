@@ -124,7 +124,6 @@ in
     openFirewall = true;
   };
 
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -244,37 +243,30 @@ in
 
   nixpkgs.overlays = [
     (self: super: {
-      gnome = super.gnome.overrideScope (
-        gself: gsuper: {
-          nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
-            buildInputs =
-              nsuper.buildInputs
-              ++ (with pkgs.gst_all_1; [
-                gst-plugins-good
-                gst-plugins-bad
-              ]);
-          });
-          gnome-software = gsuper.gnome-software.overrideAttrs (gssuper: {
-            buildInputs =
-              gssuper.buildInputs
-              ++ (with pkgs.gst_all_1; [
-                gst-plugins-good
-                gst-plugins-bad
-              ]);
-          });
-        }
-      );
+      nautilus = super.nautilus.overrideAttrs (nsuper: {
+        buildInputs =
+          nsuper.buildInputs
+          ++ (with pkgs.gst_all_1; [
+            gst-plugins-good
+            gst-plugins-bad
+          ]);
+      });
+      gnome-software = super.gnome-software.overrideAttrs (gssuper: {
+        buildInputs =
+          gssuper.buildInputs
+          ++ (with pkgs.gst_all_1; [
+            gst-plugins-good
+            gst-plugins-bad
+          ]);
+      });
     })
   ];
 
   programs.regreet = {
     enable = true;
     settings = {
-      background.path = "/usr/share/backgrounds/greeter.jpg";
       background.fit = "Fill";
       "GTK".application_prefer_dark_theme = true;
-      "GTK".theme = "Canta";
-      "GTK".icon_theme_name = "Canta";
       commands = {
         reboot = [
           "systemctl"
@@ -293,7 +285,7 @@ in
 
   stylix = {
     enable = true;
-    image = /usr/share/backgrounds/desktop.jpg;
+    image = /usr/share/backgrounds/greeter.jpg;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
     fonts = rec {
@@ -326,15 +318,6 @@ in
   services.flatpak.enable = true;
 
   services.fwupd.enable = true;
-
-  systemd = {
-    services.fprintd = {
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.type = "simple";
-    };
-  };
-
-  services.fprintd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
