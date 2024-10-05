@@ -11,6 +11,7 @@
       # Applications
       gnome.nautilus
       gnome.gnome-software
+      gnome.gnome-disk-utility
 
       # Dev Tools
       btop
@@ -29,8 +30,6 @@
       pass-wayland
     ];
 
-    programs.firefox.enable = true;
-
     home.stateVersion = "24.05";
 
     home.enableNixpkgsReleaseCheck = false;
@@ -41,7 +40,6 @@
       enable = true;
       shellAliases = {
         z = "zellij";
-        freyr = "docker run -it --rm -v $PWD:/data:z freyrcli/freyrjs";
 
         # Git Aliases
         g = "git";

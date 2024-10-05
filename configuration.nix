@@ -220,6 +220,7 @@ in
     xwayland
     canta-theme
     wl-clipboard
+    kdePackages.polkit-kde-agent-1
   ];
 
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
@@ -331,12 +332,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig.type = "simple";
     };
-    sleep.extraConfig = ''
-      HibernateDelaySec=21600
-    '';
   };
-
-  services.logind.lidSwitch = "suspend-then-hibernate";
 
   services.fprintd.enable = true;
 

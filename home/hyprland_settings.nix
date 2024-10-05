@@ -11,6 +11,7 @@
   exec-once = [
     "waybar"
     "nm-applet"
+    "systemctl --user start plasma-polkit-agent"
   ];
 
   general = {
@@ -53,6 +54,7 @@
   # Applications
   "$terminal" = "${pkgs.kitty}/bin/kitty";
   "$fileManager" = "nautilus";
+  "$browser" = "flatpak run org.mozilla.firefox";
 
   # Input Tuning
   input = {
@@ -70,7 +72,7 @@
   bind =
     [
       # Application Binds
-      "$mod, F, exec, firefox"
+      "$mod, F, exec, $browser"
       "$mod, T, exec, $terminal"
       "$mod, E, exec, $fileManager"
       "$mod, S, exec, gnome-software"
