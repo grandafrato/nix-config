@@ -158,8 +158,8 @@
         ipc = "on";
         splash = false;
 
-        preload = [ "/usr/share/backgrounds/desktop.jpg" ];
-        wallpaper = [ ",/usr/share/backgrounds/desktop.jpg" ];
+        preload = [ "${./backgrounds/Mountains.png}" ];
+        wallpaper = [ ",${./backgrounds/Mountains.png}" ];
       };
     };
 
@@ -204,7 +204,7 @@
       enable = true;
       settings = {
         source = "${./home/hyprlock/mocha.conf}";
-        "$bg_path" = "${./home/hyprlock/background.png}";
+        "$bg_path" = "${./backgrounds/Clearnight.jpg}";
         "$face_path" = "${./home/hyprlock/face.png}";
       };
       extraConfig = builtins.readFile ./home/hyprlock/hyprlock.conf;

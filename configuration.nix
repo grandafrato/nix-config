@@ -2,7 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, hyprland, ... }:
+{
+  inputs,
+  pkgs,
+  hyprland,
+  ...
+}:
 
 let
   hypr_packages = hyprland.packages.${pkgs.stdenv.hostPlatform.system};
@@ -45,7 +50,7 @@ in
   # Laptop Power Management
   powerManagement.enable = true;
   services.thermald.enable = true;
-  services.auto-cpufreq = {
+  programs.auto-cpufreq = {
     enable = true;
     settings = {
       battery = {
@@ -285,7 +290,7 @@ in
 
   stylix = {
     enable = true;
-    image = /usr/share/backgrounds/greeter.jpg;
+    image = ./backgrounds/Clearnight.jpg;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
     fonts = rec {

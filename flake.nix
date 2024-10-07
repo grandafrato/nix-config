@@ -25,20 +25,21 @@
       hyprland,
       erosanix,
       ...
-    }:
+    }@inputs:
     {
       nixosConfigurations.theodore = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
+          inherit inputs;
           inherit hyprland;
         };
         modules = [
           stylix.nixosModules.stylix
-          erosanix.nixosModules.protonvpn
           ./configuration.nix
           home-manager.nixosModules.home-manager
           ./home.nix
           auto-cpufreq.nixosModules.default
+          erosanix.nixosModules.protonvpn
         ];
       };
     };
