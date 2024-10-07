@@ -14,10 +14,7 @@
       gnome-disk-utility
 
       # Dev Tools
-      btop
-      helix
       nil
-      zellij
       bat
 
       # notification daemon
@@ -98,6 +95,8 @@
         copy_command = "wl-copy";
       };
     };
+
+    programs.btop.enable = true;
 
     programs.fuzzel = {
       enable = true;

@@ -302,6 +302,7 @@ in
       sansSerif = monospace;
       emoji = monospace;
     };
+    opacity.terminal = 0.8;
   };
 
   services.interception-tools =
