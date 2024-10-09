@@ -3,6 +3,7 @@
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.backupFileExtension = "backup";
   home-manager.users.lachlan = {
     home.username = "lachlan";
     home.homeDirectory = "/home/lachlan";
@@ -15,7 +16,6 @@
 
       # Dev Tools
       nil
-      bat
 
       # notification daemon
       libnotify
@@ -97,13 +97,14 @@
     };
 
     programs.btop.enable = true;
+    programs.bat.enable = true;
 
     programs.fuzzel = {
       enable = true;
       settings.main = {
         layer = "overlay";
         terminal = "${pkgs.kitty}/bin/kitty";
-        font = lib.mkForce "Hack Nerd Font:size=18";
+        font = lib.mkForce "JetBrainsMono NF SemiBold:size=12";
         width = 40;
       };
     };
