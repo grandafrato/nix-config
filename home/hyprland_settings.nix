@@ -11,7 +11,7 @@
   exec-once = [
     "waybar"
     "nm-applet"
-    "systemctl --user start plasma-polkit-agent"
+    "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"
   ];
 
   general = {
