@@ -13,6 +13,7 @@
       nautilus
       gnome-software
       gnome-disk-utility
+      gnome-usage
 
       # Dev Tools
       nil
