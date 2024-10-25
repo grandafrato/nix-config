@@ -229,6 +229,8 @@ in
     kdePackages.polkit-kde-agent-1
   ];
 
+  programs.nix-ld.dev.enable = true;
+
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   hardware.brillo.enable = true;

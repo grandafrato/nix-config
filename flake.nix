@@ -27,6 +27,10 @@
       url = "github:zed-industries/zed";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-ld = {
+      url = "github:nix-community/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -38,6 +42,7 @@
       hyprland,
       erosanix,
       zed-editor,
+      nix-ld,
       ...
     }@inputs:
     {
@@ -54,11 +59,12 @@
           };
           modules = [
             stylix.nixosModules.stylix
+            auto-cpufreq.nixosModules.default
+            erosanix.nixosModules.protonvpn
+            nix-ld.nixosModules.nix-ld
             ./configuration.nix
             home-manager.nixosModules.home-manager
             ./home.nix
-            auto-cpufreq.nixosModules.default
-            erosanix.nixosModules.protonvpn
           ];
         };
     };

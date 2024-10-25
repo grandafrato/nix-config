@@ -521,6 +521,26 @@
         "type": "github"
       }
     },
+    "nix-ld": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1728031945,
+        "narHash": "sha256-NRkLjdMtVfC6dD1gEbYZWFEtbmC2xfD6ft1IP7l76Vw=",
+        "owner": "nix-community",
+        "repo": "nix-ld",
+        "rev": "4524c512e8729ccb5a1b9239d01e1474cbf074a2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-ld",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1729665710,
@@ -583,6 +603,7 @@
         "erosanix": "erosanix",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "nix-ld": "nix-ld",
         "nixpkgs": "nixpkgs",
         "stylix": "stylix",
         "zed-editor": "zed-editor"
