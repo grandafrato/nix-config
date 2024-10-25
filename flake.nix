@@ -23,6 +23,10 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zed-editor = {
+      url = "github:zed-industries/zed";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -33,23 +37,29 @@
       auto-cpufreq,
       hyprland,
       erosanix,
+      zed-editor,
       ...
     }@inputs:
     {
-      nixosConfigurations.theodore = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          inherit hyprland;
+      nixosConfigurations.theodore =
+        let
+          system = "x86_64-linux";
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+            inherit hyprland;
+            zedPackages = zed-editor.packages.${system};
+          };
+          modules = [
+            stylix.nixosModules.stylix
+            ./configuration.nix
+            home-manager.nixosModules.home-manager
+            ./home.nix
+            auto-cpufreq.nixosModules.default
+            erosanix.nixosModules.protonvpn
+          ];
         };
-        modules = [
-          stylix.nixosModules.stylix
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          ./home.nix
-          auto-cpufreq.nixosModules.default
-          erosanix.nixosModules.protonvpn
-        ];
-      };
     };
 }

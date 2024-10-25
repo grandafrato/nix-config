@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  zedPackages,
+  ...
+}:
 
 {
   home-manager.useGlobalPkgs = true;
@@ -17,6 +22,7 @@
 
       # Dev Tools
       nil
+      zedPackages.zed-editor
 
       # notification daemon
       libnotify
