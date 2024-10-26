@@ -23,12 +23,12 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zed-editor = {
-      url = "github:zed-industries/zed";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-ld = {
       url = "github:nix-community/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -41,8 +41,8 @@
       auto-cpufreq,
       hyprland,
       erosanix,
-      zed-editor,
       nix-ld,
+      nixvim,
       ...
     }@inputs:
     {
@@ -53,9 +53,7 @@
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit inputs;
-            inherit hyprland;
-            zedPackages = zed-editor.packages.${system};
+            inherit inputs hyprland nixvim;
           };
           modules = [
             stylix.nixosModules.stylix

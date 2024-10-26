@@ -34,7 +34,7 @@ in
   };
 
   services.protonvpn = {
-    enable = true;
+    enable = false;
     autostart = true;
     interface.privateKeyFile = "/root/secrets/protonvpn";
     # US-CA#85

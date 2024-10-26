@@ -1,10 +1,9 @@
 {
   pkgs,
   lib,
-  zedPackages,
+  nixvim,
   ...
 }:
-
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -22,7 +21,6 @@
 
       # Dev Tools
       nil
-      zedPackages.zed-editor
 
       # notification daemon
       libnotify
@@ -37,6 +35,8 @@
     home.stateVersion = "24.05";
 
     home.enableNixpkgsReleaseCheck = false;
+
+    imports = [ nixvim.homeManagerModules.nixvim ];
 
     programs.home-manager.enable = true;
 
@@ -56,7 +56,6 @@
       profileExtra = ''
         export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
       '';
-      sessionVariables.EDITOR = "hx";
     };
 
     services.gpg-agent = {
@@ -74,6 +73,8 @@
         signByDefault = true;
       };
     };
+
+    programs.nixvim = import ./home/nixvim.nix;
 
     programs.helix = {
       enable = true;
