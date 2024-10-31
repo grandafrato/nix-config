@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  hyprland,
   nixvim,
   ...
 }:
@@ -36,7 +37,10 @@
 
     home.enableNixpkgsReleaseCheck = false;
 
-    imports = [ nixvim.homeManagerModules.nixvim ];
+    imports = [
+      nixvim.homeManagerModules.nixvim
+      hyprland.homeManagerModules.default
+    ];
 
     programs.home-manager.enable = true;
 
@@ -44,6 +48,7 @@
       enable = true;
       shellAliases = {
         z = "zellij";
+        v = "nvim";
 
         # Git Aliases
         g = "git";
@@ -56,6 +61,7 @@
       profileExtra = ''
         export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
       '';
+      sessionVariables.EDITOR = "nvim";
     };
 
     services.gpg-agent = {

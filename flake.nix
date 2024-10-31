@@ -30,6 +30,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 
@@ -60,6 +61,7 @@
             auto-cpufreq.nixosModules.default
             erosanix.nixosModules.protonvpn
             nix-ld.nixosModules.nix-ld
+            hyprland.nixosModules.default
             ./configuration.nix
             home-manager.nixosModules.home-manager
             ./home.nix
