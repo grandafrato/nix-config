@@ -49,6 +49,7 @@
       shellAliases = {
         z = "zellij";
         v = "nvim";
+        t = "tmux";
 
         # Git Aliases
         g = "git";
@@ -81,6 +82,15 @@
     };
 
     programs.nixvim = import ./home/nixvim.nix;
+
+    programs.tmux = {
+      enable = true;
+
+      escapeTime = 0;
+      keyMode = "vi";
+
+      prefix = "C-a";
+    };
 
     programs.helix = {
       enable = true;
