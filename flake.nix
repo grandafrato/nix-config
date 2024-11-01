@@ -11,10 +11,6 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    auto-cpufreq = {
-      url = "github:AdnanHodzic/auto-cpufreq";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     erosanix = {
       url = "github:emmanuelrosa/erosanix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +35,6 @@
       nixpkgs,
       home-manager,
       stylix,
-      auto-cpufreq,
       hyprland,
       erosanix,
       nix-ld,
@@ -58,7 +53,6 @@
           };
           modules = [
             stylix.nixosModules.stylix
-            auto-cpufreq.nixosModules.default
             erosanix.nixosModules.protonvpn
             nix-ld.nixosModules.nix-ld
             hyprland.nixosModules.default

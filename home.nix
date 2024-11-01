@@ -91,7 +91,7 @@
 
       prefix = "C-a";
 
-      terminal = "kitty";
+      terminal = "xterm-kitty";
       shell = "/run/current-system/sw/bin/bash";
     };
 

@@ -49,7 +49,7 @@ in
   # Laptop Power Management
   powerManagement.enable = true;
   services.thermald.enable = true;
-  programs.auto-cpufreq = {
+  services.auto-cpufreq = {
     enable = true;
     settings = {
       battery = {
@@ -219,6 +219,8 @@ in
     git
     pass-secret-service
     pass-wayland
+    auto-cpufreq
+    dmidecode
 
     # Desktop functionality
     swww
