@@ -90,6 +90,9 @@
       keyMode = "vi";
 
       prefix = "C-a";
+
+      terminal = "kitty";
+      shell = "/run/current-system/sw/bin/bash";
     };
 
     programs.helix = {
@@ -117,6 +120,7 @@
         pane_frames = false;
         default_layout = "compact";
         copy_command = "wl-copy";
+        default_shell = "/run/current-system/sw/bin/bash";
       };
     };
 
