@@ -4,6 +4,7 @@
 
 {
   pkgs,
+  stable-pkgs,
   hyprland,
   ...
 }:
@@ -212,8 +213,6 @@ in
     kdePackages.polkit-kde-agent-1
   ];
 
-  programs.nix-ld.dev.enable = true;
-
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   hardware.brillo.enable = true;
@@ -308,7 +307,10 @@ in
       '';
     };
 
-  services.flatpak.enable = true;
+  services.flatpak = {
+    enable = true;
+    package = stable-pkgs.flatpak;
+  };
 
   services.fwupd.enable = true;
 
