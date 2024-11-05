@@ -16,7 +16,6 @@
     home.packages = with pkgs; [
       # Applications
       nautilus
-      gnome-software
       gnome-disk-utility
       gnome-usage
 
