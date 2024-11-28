@@ -5,13 +5,9 @@
 {
   pkgs,
   stable-pkgs,
-  hyprland,
   ...
 }:
 
-let
-  hypr_packages = hyprland.packages.${pkgs.stdenv.hostPlatform.system};
-in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -50,6 +46,7 @@ in
   # Laptop Power Management
   powerManagement.enable = true;
   services.thermald.enable = true;
+  services.power-profiles-daemon.enable = false;
   services.tlp = {
     enable = true;
     settings = {
@@ -62,7 +59,7 @@ in
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 60;
+      CPU_MAX_PERF_ON_BAT = 40;
 
       START_CHARGE_THRESH_BAT0 = 40;
       STOP_CHARGE_THRESH_BAT0 = 80;
@@ -87,8 +84,6 @@ in
   nix = {
     settings = {
       auto-optimise-store = true;
-      substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
       experimental-features = [
         "nix-command"
         "flakes"
@@ -100,6 +95,8 @@ in
       options = "--delete-older-than 30d";
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -114,22 +111,58 @@ in
   };
 
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    wireplumber.extraConfig.bluetoothEnhancements = {
-      "monitor.bluez.properties" = {
-        "bluez5.enable-sbc-xq" = true;
-        "bluez5.enable-msbc" = true;
-        "bluez5.enable-hw-volume" = true;
-        "bluez5.roles" = [
-          "hsp_hs"
-          "hsp_ag"
-          "hfp_hf"
-          "hfp_ag"
-        ];
+    wireplumber = {
+      enable = true;
+      configPackages = [
+        (pkgs.writeTextDir "share/wireplumber/main.lua.d/99-alsa-usb-dac.lua" ''
+          rule = {
+            matches = {{{"node.name", "matches", "alsa_output.usb-MOONDROP_MOONDROP_Dawn_Pro_MOONDROP_Dawn_Pro-00.*"}}},
+            apply_properties = {
+              ["audio.format"] = "S32LE",
+              ["audio.rate"] = 384000,
+            },
+          }
+
+          table.insert(alsa_monitor.rules, rule)
+        '')
+      ];
+      extraConfig = {
+        bluetoothEnhancements = {
+          "monitor.bluez.properties" = {
+            "bluez5.enable-sbc-xq" = true;
+            "bluez5.enable-msbc" = true;
+            "bluez5.enable-hw-volume" = true;
+            "bluez5.roles" = [
+              "hsp_hs"
+              "hsp_ag"
+              "hfp_hf"
+              "hfp_ag"
+            ];
+          };
+        };
+      };
+    };
+    extraConfig.pipewire = {
+      "98-sample-rates" = {
+        "context.properties" = {
+          "default.clock.rate" = 192000;
+          "default.clock.allowed-rates" = [
+            44100
+            48000
+            96000
+            192000
+            384000
+          ];
+          "default.clock.quantum" = 1024;
+          "default.clock.min-quantum" = 32;
+          "default.clock.max-quantum" = 8192;
+        };
       };
     };
   };
@@ -164,24 +197,13 @@ in
     })
   ];
 
-  programs.hyprland = {
-    enable = true;
-    portalPackage = hypr_packages.xdg-desktop-portal-hyprland;
-    package = hypr_packages.hyprland;
-  };
-
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
+    COSMIC_DATA_CONTROL = "1";
   };
 
   services.dbus.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      hypr_packages.xdg-desktop-portal-hyprland
-    ];
-  };
+  xdg.portal.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lachlan = {
@@ -190,10 +212,7 @@ in
       "wheel"
       "networkmanager"
       "video"
-    ];
-    packages = with pkgs; [
-      #     firefox
-      tree
+      "vboxusers"
     ];
   };
 
@@ -202,20 +221,15 @@ in
   environment.systemPackages = with pkgs; [
     wget
     git
-    pass-secret-service
-    pass-wayland
-
-    # Desktop functionality
-    swww
-    xwayland
-    canta-theme
-    wl-clipboard
-    kdePackages.polkit-kde-agent-1
+    tree
   ];
 
   fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
   hardware.brillo.enable = true;
+
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -231,50 +245,6 @@ in
   # services.openssh.enable = true;
 
   services.gvfs.enable = true;
-
-  nixpkgs.overlays = [
-    (self: super: {
-      nautilus = super.nautilus.overrideAttrs (nsuper: {
-        buildInputs =
-          nsuper.buildInputs
-          ++ (with pkgs.gst_all_1; [
-            gst-plugins-good
-            gst-plugins-bad
-          ]);
-      });
-        #  gnome-software = super.gnome-software.overrideAttrs (gssuper: {
-        #    buildInputs =
-        #      gssuper.buildInputs
-        #      ++ (with pkgs.gst_all_1; [
-        #        gst-plugins-good
-        #        gst-plugins-bad
-        #        stable-pkgs.flatpak
-        #        stable-pkgs.ostree
-        #      ]);
-        #  });
-    })
-  ];
-
-  programs.regreet = {
-    enable = true;
-    settings = {
-      background.fit = "Fill";
-      "GTK".application_prefer_dark_theme = true;
-      commands = {
-        reboot = [
-          "systemctl"
-          "reboot"
-        ];
-        poweroff = [
-          "systemctl"
-          "poweroff"
-        ];
-      };
-      appearance.greeting_msg = "Welcome back!";
-    };
-  };
-
-  environment.etc."greetd/environments".text = "Hyprland";
 
   stylix = {
     enable = true;
