@@ -7,7 +7,7 @@
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "backup";
+  home-manager.backupFileExtension = "backup1";
   home-manager.users.lachlan = {
     home.username = "lachlan";
     home.homeDirectory = "/home/lachlan";

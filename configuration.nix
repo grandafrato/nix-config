@@ -212,7 +212,6 @@
       "wheel"
       "networkmanager"
       "video"
-      "vboxusers"
     ];
   };
 
