@@ -5,6 +5,8 @@
 {
   pkgs,
   stable-pkgs,
+  hyprland-pkgs,
+  inputs,
   ...
 }:
 
@@ -27,17 +29,6 @@
   networking.networkmanager = {
     enable = true; # Easiest to use and most distros use this by default.
     wifi.scanRandMacAddress = false;
-  };
-
-  services.protonvpn = {
-    enable = false;
-    autostart = true;
-    interface.privateKeyFile = "/root/secrets/protonvpn";
-    # US-CA#85
-    endpoint = {
-      publicKey = "0lVdORRneTkqH7Hh12Z5hnATz+kXmkiSwz8YHHx4Ywg=";
-      ip = "156.146.54.97";
-    };
   };
 
   # Set your time zone.
@@ -174,8 +165,6 @@
     powerOnBoot = true;
   };
 
-  services.blueman.enable = true;
-
   virtualisation.containers.enable = true;
   virtualisation.podman = {
     enable = true;
@@ -199,7 +188,6 @@
 
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
-    COSMIC_DATA_CONTROL = "1";
   };
 
   services.dbus.enable = true;
@@ -223,12 +211,30 @@
     tree
   ];
 
-  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
 
   hardware.brillo.enable = true;
 
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  # Use hyprland's mesa
+  hardware.graphics =
+    let
+      hyprland-input-pkgs =
+        inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    in
+    {
+      enable = true;
+      package = hyprland-input-pkgs.mesa.drivers;
+      enable32Bit = true;
+      package32 = hyprland-input-pkgs.pkgsi686Linux.mesa.drivers;
+    };
+
+  programs.hyprland = {
+    enable = true;
+    package = hyprland-pkgs.hyprland;
+    portalPackage = hyprland-pkgs.xdg-desktop-portal-hyprland;
+  };
+
+  services.displayManager.ly.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -245,6 +251,29 @@
 
   services.gvfs.enable = true;
 
+  nixpkgs.overlays = [
+    (self: super: {
+      nautilus = super.nautilus.overrideAttrs (nsuper: {
+        buildInputs =
+          nsuper.buildInputs
+          ++ (with pkgs.gst_all_1; [
+            gst-plugins-good
+            gst-plugins-bad
+          ]);
+      });
+      gnome-software = super.gnome-software.overrideAttrs (gssuper: {
+        buildInputs =
+          gssuper.buildInputs
+          ++ (with pkgs.gst_all_1; [
+            gst-plugins-good
+            gst-plugins-bad
+            stable-pkgs.flatpak
+            stable-pkgs.ostree
+          ]);
+      });
+    })
+  ];
+
   stylix = {
     enable = true;
     image = ./backgrounds/Clearnight.jpg;
@@ -252,7 +281,7 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
     fonts = rec {
       monospace = {
-        package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+        package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font Mono";
       };
       serif = monospace;

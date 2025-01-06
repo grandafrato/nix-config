@@ -2,9 +2,9 @@
   description = "Base OS Nix flake";
 
   inputs = {
-    nixpkgs.follows = "nixos-cosmic/nixpkgs";
-    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    nixpkgs.url = "github:Nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:Nixos/nixpkgs/24.05";
+    hyprland.url = "github:hyprwm/Hyprland";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +34,7 @@
       erosanix,
       nixvim,
       nix-hardware,
-      nixos-cosmic,
+      hyprland,
       ...
     }@inputs:
     {
@@ -47,15 +47,21 @@
           specialArgs = {
             inherit inputs nixvim;
             stable-pkgs = nixpkgs-stable.legacyPackages.${system};
+            hyprland-pkgs = hyprland.packages.${system};
           };
           modules = [
             {
               nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+                substituters = [
+                  "https://hyprland.cachix.org"
+                  "https://cosmic.cachix.org/"
+                ];
+                trusted-public-keys = [
+                  "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+                  "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+                ];
               };
             }
-            nixos-cosmic.nixosModules.default
             stylix.nixosModules.stylix
             erosanix.nixosModules.protonvpn
             ./configuration.nix

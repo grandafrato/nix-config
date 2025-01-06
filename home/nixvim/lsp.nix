@@ -18,6 +18,8 @@
         };
         elixirls.enable = true;
         nil_ls.enable = true;
+        zls.enable = true;
+        glsl_analyzer.enable = true;
       };
 
       keymaps = {
