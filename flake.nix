@@ -13,10 +13,6 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    erosanix = {
-      url = "github:emmanuelrosa/erosanix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +27,6 @@
       nixpkgs-stable,
       home-manager,
       stylix,
-      erosanix,
       nixvim,
       nix-hardware,
       hyprland,
@@ -63,7 +58,6 @@
               };
             }
             stylix.nixosModules.stylix
-            erosanix.nixosModules.protonvpn
             ./configuration.nix
             home-manager.nixosModules.home-manager
             ./home.nix
