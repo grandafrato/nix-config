@@ -58,6 +58,8 @@
       };
     };
 
+    services.gnome-keyring.enable = true;
+
     services.gpg-agent = {
       enable = true;
       defaultCacheTtl = 1800;
@@ -176,12 +178,13 @@
     services.hyprpaper = {
       enable = true;
       settings = {
-        ipc = "off";
+        ipc = "on";
         splash = false;
-        # preload = "${./backgrounds/Mountains.png}";
-        # wallpaper = ",${./backgrounds/Mountains.png}";
+        preload = "${./backgrounds/Mountains.png}";
+        wallpaper = ",${./backgrounds/Mountains.png}";
       };
     };
+    stylix.targets.hyprpaper.enable = false;
 
     services.hypridle = {
       enable = true;

@@ -10,7 +10,7 @@
   # Startup
   exec-once = [
     "waybar"
-    "nm-applet"
+    "systemctl --user enable --now hyprpaper.service"
     "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"
   ];
 
