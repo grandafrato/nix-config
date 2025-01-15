@@ -103,6 +103,9 @@
 
   security.rtkit.enable = true;
 
+  # Enable Thunderbolt Userspace Daemon
+  services.hardware.bolt.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -209,6 +212,8 @@
     wget
     git
     tree
+    rose-pine-cursor
+    rose-pine-icon-theme
   ];
 
   fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
@@ -278,7 +283,7 @@
     enable = true;
     image = ./backgrounds/Clearnight.jpg;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
     fonts = rec {
       monospace = {
         package = pkgs.nerd-fonts.jetbrains-mono;
@@ -287,6 +292,11 @@
       serif = monospace;
       sansSerif = monospace;
       emoji = monospace;
+    };
+    cursor = {
+      package = pkgs.rose-pine-cursor;
+      name = "BreezeX-RosePineDawn-Linux";
+      size = 32;
     };
     opacity.terminal = 0.8;
   };

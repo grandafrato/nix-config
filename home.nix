@@ -31,6 +31,13 @@
       nixvim.homeManagerModules.nixvim
     ];
 
+    stylix.iconTheme = {
+      enable = true;
+      package = pkgs.rose-pine-icon-theme;
+      dark = "rose-pine";
+      light = "rose-pine";
+    };
+
     programs.home-manager.enable = true;
 
     programs.bash = {

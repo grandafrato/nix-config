@@ -11,6 +11,7 @@
   exec-once = [
     "waybar"
     "systemctl --user enable --now hyprpaper.service"
+    "systemctl --user enable --now hypridle.service"
     "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"
   ];
 
