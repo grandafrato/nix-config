@@ -175,6 +175,8 @@
     defaultNetwork.settings.dns_enabled = true;
   };
 
+  programs.appimage.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
@@ -212,7 +214,7 @@
     wget
     git
     tree
-    rose-pine-cursor
+    quintom-cursor-theme
     rose-pine-icon-theme
   ];
 
@@ -294,8 +296,8 @@
       emoji = monospace;
     };
     cursor = {
-      package = pkgs.rose-pine-cursor;
-      name = "BreezeX-RosePineDawn-Linux";
+      package = pkgs.quintom-cursor-theme;
+      name = "Quintom_Snow";
       size = 32;
     };
     opacity.terminal = 0.8;
