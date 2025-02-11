@@ -27,6 +27,23 @@
 
     home.enableNixpkgsReleaseCheck = false;
 
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      name = "Quintom_Snow";
+    };
+
+    gtk = {
+      enable = true;
+
+      theme = {
+        package = lib.mkForce pkgs.rose-pine-gtk-theme;
+        name = lib.mkForce "rose-pine";
+      };
+
+      font.name = "JetBrainsMono Nerd Font Mono";
+    };
+
     imports = [
       nixvim.homeManagerModules.nixvim
     ];
@@ -39,6 +56,8 @@
     };
 
     programs.home-manager.enable = true;
+
+    programs.firefox.enable = true;
 
     programs.bash = {
       enable = true;
@@ -120,6 +139,7 @@
 
     programs.zellij = {
       enable = true;
+      enableBashIntegration = false;
       settings = {
         pane_frames = false;
         default_layout = "compact";
@@ -167,6 +187,7 @@
     wayland.windowManager.hyprland = {
       enable = true;
       package = hyprland-pkgs.hyprland;
+      portalPackage = hyprland-pkgs.xdg-desktop-portal-hyprland;
       systemd.enable = true;
       settings = import ./home/hyprland_settings.nix pkgs;
     };

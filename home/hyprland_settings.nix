@@ -53,7 +53,7 @@
   # Applications
   "$terminal" = "${pkgs.kitty}/bin/kitty";
   "$fileManager" = "nautilus";
-  "$browser" = "flatpak run org.mozilla.firefox";
+  "$browser" = "firefox";
 
   # Input Tuning
   input = {

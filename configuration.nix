@@ -300,7 +300,6 @@
       name = "Quintom_Snow";
       size = 32;
     };
-    opacity.terminal = 0.8;
   };
 
   services.interception-tools =
